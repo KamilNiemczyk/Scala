@@ -21,10 +21,10 @@ class Saver(organiser : ActorRef, cutoff: Int) extends Actor {
             val outPath = config.getString("out")       //getting out dir from config
             val out = new File(outPath)
             if (score < cutoff) {         //checking if score is lower or higher than cutoff
-                val file = new File(s"$out/${path.split("\\\\").last.split('.').head}_bright_$score.$format")
+                val file = new File(s"$out/${path.split("[/\\\\]").last.split('.').head}_bright_$score.$format")
                 ImageIO.write(img, format, file)      //saving image as bright with score
             } else {
-                val file = new File(s"$out/${path.split("\\\\").last.split('.').head}_dark_$score.$format")
+                val file = new File(s"$out/${path.split("[/\\\\]").last.split('.').head}_dark_$score.$format")
                 ImageIO.write(img, format, file)          //saving image as dark with score
             }
             organiser ! End       //sending message to organiser
